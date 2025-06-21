@@ -1,0 +1,45 @@
+name: Generate Charts README
+
+on:
+  push:
+    paths:
+      - 'charts/**'
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Generate README.md for charts directory
+        run: |
+          CHARTS_DIR=charts
+          README_FILE="$CHARTS_DIR/README.md"
+
+          echo "# Helm Charts" > "$README_FILE"
+          echo "" >> "$README_FILE"
+          echo "This directory contains the following Helm charts:" >> "$README_FILE"
+          echo "" >> "$README_FILE"
+
+          for dir in "$CHARTS_DIR"/*; do
+            if [ -d "$dir" ] && [ -f "$dir/Chart.yaml" ]; then
+              chart_name=$(basename "$dir")
+              echo "- [${chart_name}](./${chart_name})" >> "$README_FILE"
+            fi
+          done
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git add charts/README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-generate charts/README.md"
+            git push
+          fi
