@@ -1,0 +1,28 @@
+name: Document Helm-Chart
+
+on:
+  push:
+    branches:
+    - main
+    paths:
+      - 'charts/**/values.yaml'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Generate Charts README"]
+    types:
+      - completed
+
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v4
+
+    - name: Run helm-docs
+      uses: losisin/helm-docs-github-action@v1
+      with:
+        git-push: true
+        git-push-user-name: "$GITHUB_ACTOR"
+        git-push-user-email: "${GITHUB_ACTOR}@users.noreply.github.com"
+        git-commit-message: "chore: update Helm documentation"
