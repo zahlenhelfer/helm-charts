@@ -6,6 +6,10 @@ on:
     - main
     paths:
     - 'charts/**'
+  workflow_run:
+    workflows: ["Generate Charts README"]
+    types:
+      - completed
 
 jobs:
   release:
