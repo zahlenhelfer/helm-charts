@@ -31,6 +31,8 @@ jobs:
         # Lint all charts in the charts directory
         for chart in charts/*; do
           if [ -d "$chart" ]; then
+            echo "Update dependencies $chart"
+            helm dependency update "$chart"
             echo "Linting $chart"
             helm lint "$chart"
           fi
