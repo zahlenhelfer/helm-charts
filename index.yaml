@@ -2,6 +2,19 @@ apiVersion: v1
 entries:
   metrics-server:
   - apiVersion: v2
+    created: "2025-06-21T10:50:27.643262971Z"
+    dependencies:
+    - name: metrics-server
+      repository: https://kubernetes-sigs.github.io/metrics-server/
+      version: 3.12.2
+    description: Umbrella chart - Metrics Server
+    digest: 0d0d05947d7b1fbb65e86a579952b46f9b8fc4f8e3c2685289ff9c852252c7be
+    name: metrics-server
+    type: application
+    urls:
+    - https://github.com/zahlenhelfer/helm-charts/releases/download/metrics-server-0.1.0/metrics-server-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
     created: "2025-06-21T10:31:27.300285872Z"
     dependencies:
     - name: metrics-server
@@ -25,4 +38,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-06-21T10:31:27.438327727Z"
+generated: "2025-06-21T10:50:27.643274873Z"
