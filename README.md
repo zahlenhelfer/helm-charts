@@ -1,5 +1,7 @@
 # my umbrella chart collection
 
+![Dependabot Badge](https://img.shields.io/badge/Dependabot-Enabled-brightgreen)
+
 This repo contains my own currated list of umbrella charts for my personal use.
 
 ## How to `helm` this repo
