@@ -2,6 +2,8 @@
 
 This repo contains my own currated list of umbrella charts for my personal use.
 
+## How to `helm` this repo
+
 To add the repo to helm
 `helm repo add zahlenhelfer https://zahlenhelfer.github.io/helm-charts`
 
@@ -11,7 +13,7 @@ To install the <chart-name> chart:
 To uninstall the chart:
 `helm delete my-<chart-name>`
 
-## Example
+## Example usage of a chart
 
 ```bash
 helm repo add zahlenhelfer https://zahlenhelfer.github.io/helm-charts
