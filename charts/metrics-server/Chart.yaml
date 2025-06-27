@@ -2,7 +2,7 @@ apiVersion: v2
 name: metrics-server
 description: Umbrella chart - Metrics Server
 type: application
-version: 0.2.1
+version: 1.0.0
 
 dependencies:
   - name: metrics-server
