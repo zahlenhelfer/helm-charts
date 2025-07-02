@@ -13,18 +13,21 @@ jobs:
 
       - name: Generate dependabot.yaml
         run: |
-          echo "version: 2" > dependabot.yaml
-          echo "updates:" >> dependabot.yaml
+          {
+            echo "version: 2"
+            echo "updates:"
+          } > dependabot.yaml
 
           find charts -type f -name "Chart.yaml" | while read -r chart_file; do
             chart_dir=$(dirname "$chart_file")
-            cat <<EOF >> dependabot.yaml
-              - package-ecosystem: "helm"
-                directory: "/$chart_dir"
-                schedule:
-                  interval: "weekly"
-            EOF
+            {
+              echo "  - package-ecosystem: \"helm\""
+              echo "    directory: \"/$chart_dir\""
+              echo "    schedule:"
+              echo "      interval: \"weekly\""
+            } >> dependabot.yaml
           done
+
 
       - name: Commit and push dependabot.yaml
         run: |
