@@ -1,8 +1,33 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
 suite: test deployment
 templates:
-  - deployment.yaml
+  - templates/deployment.yaml
+
 tests:
+  - it: should render a Deployment
+    asserts:
+      - isKind:
+          of: Deployment
+      - isNotEmpty:
+          path: metadata.name
+
+  - it: should set the image correctly from values
+    set:
+      image.repository: nginx
+      image.tag: 1.23
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: nginx:1.23
+
+  - it: should set replicas from values
+    set:
+      replicaCount: 3
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 3
+
   - it: should work
     set:
       image.tag: latest
