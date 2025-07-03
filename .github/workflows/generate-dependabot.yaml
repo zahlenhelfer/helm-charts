@@ -16,6 +16,10 @@ jobs:
           {
             echo "version: 2"
             echo "updates:"
+            echo "  - package-ecosystem: \"github-actions\""
+            echo "    directory: \"/\""
+            echo "    schedule:"
+            echo "      interval: \"weekly\""
           } > dependabot.yaml
 
           find charts -type f -name "Chart.yaml" | while read -r chart_file; do
