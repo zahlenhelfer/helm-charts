@@ -1,1 +1,18 @@
-
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/metrics-server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/my-nginx"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/kyverno"
+    schedule:
+      interval: "weekly"
