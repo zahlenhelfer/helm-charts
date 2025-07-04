@@ -8,7 +8,7 @@ Umbrella chart - Kyverno Server
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kyverno.github.io/kyverno/ | kyverno | 3.3.4 |
+| https://kyverno.github.io/kyverno/ | kyverno | 3.4.4 |
 
 ## Values
 
