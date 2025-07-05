@@ -6,11 +6,11 @@ Umbrella chart - ArgoCD Server
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `my-argo`:
 
 ```console
 $ helm repo add foo-bar http://charts.foo-bar.com
-$ helm install my-release foo-bar/ArgoCD
+$ helm install my-argo foo-bar/ArgoCD
 ```
 
 ## Requirements
