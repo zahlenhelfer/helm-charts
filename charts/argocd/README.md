@@ -9,8 +9,13 @@ Umbrella chart - ArgoCD Server
 To install the chart with the release name `my-argo`:
 
 ```console
-$ helm repo add foo-bar http://charts.foo-bar.com
-$ helm install my-argo foo-bar/ArgoCD
+$ helm repo add zahlenhelfer https://zahlenhelfer.github.io/helm-charts
+$ helm install my-argo zahlenhelfer/ArgoCD
+```
+
+```console
+$ kubectl port-forward svc/argo-cd-argocd-server 8080:443
+$ kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
 ## Requirements
