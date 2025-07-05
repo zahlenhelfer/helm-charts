@@ -1,4 +1,4 @@
-# ArgoCD
+# argo-cd
 
 Umbrella chart - ArgoCD Server
 
@@ -10,7 +10,7 @@ To install the chart with the release name `my-argo`:
 
 ```console
 $ helm repo add zahlenhelfer https://zahlenhelfer.github.io/helm-charts
-$ helm install my-argo zahlenhelfer/ArgoCD
+$ helm install my-argo zahlenhelfer/argo-cd
 ```
 
 ```console
