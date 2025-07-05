@@ -1,6 +1,9 @@
 argo-cd:
+  ## Dex
   dex:
+    # -- Enable dex
     enabled: false
+
   server:
-    extraArgs:
-      - --insecure
+    # -- Run server without TLS
+    insecure: false
