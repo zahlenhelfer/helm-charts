@@ -14,6 +14,20 @@ entries:
     urls:
     - ArgoCD-1.0.0.tgz
     version: 1.0.0
+  argo-cd:
+  - apiVersion: v2
+    created: "2025-07-05T18:50:26.625822468Z"
+    dependencies:
+    - name: argo-cd
+      repository: https://argoproj.github.io/argo-helm
+      version: 8.1.2
+    description: Umbrella chart - ArgoCD Server
+    digest: 1a794c3b087580c6d1257d38a4b45ca091bc860b6154e939c7bec78eb6963a98
+    name: argo-cd
+    type: application
+    urls:
+    - argo-cd-1.0.0.tgz
+    version: 1.0.0
   kyverno:
   - apiVersion: v2
     created: "2025-06-27T18:03:02.263515976Z"
@@ -102,4 +116,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-05T18:04:03.400976979Z"
+generated: "2025-07-05T18:50:26.625842756Z"
