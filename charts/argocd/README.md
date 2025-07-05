@@ -1,8 +1,17 @@
 # ArgoCD
 
+Umbrella chart - ArgoCD Server
+
 ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Umbrella chart - ArgoCD Server
+## Installing the Chart
+
+To install the chart with the release name `my-release`:
+
+```console
+$ helm repo add foo-bar http://charts.foo-bar.com
+$ helm install my-release foo-bar/ArgoCD
+```
 
 ## Requirements
 
