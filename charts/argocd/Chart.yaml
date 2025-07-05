@@ -1,0 +1,10 @@
+apiVersion: v2
+name: ArgoCD
+description: Umbrella chart - ArgoCD Server
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: argo-cd
+    version: 5.46.8
+    repository: https://argoproj.github.io/argo-helm
