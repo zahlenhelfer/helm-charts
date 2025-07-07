@@ -112,6 +112,16 @@ entries:
   my-nginx:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-07-07T09:19:17.721698479Z"
+    description: A Helm chart for Kubernetes
+    digest: b80b76858dc3e069181d4d3c7520a6f29d2e86940427d597dfc1a1e29e65231a
+    name: my-nginx
+    type: application
+    urls:
+    - my-nginx-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-06-21T11:32:25.628669481Z"
     description: A Helm chart for Kubernetes
     digest: 2ef3fa50d3150a95357baf5598029b50aa32ceb0054fae37e79f6de92c52cab4
@@ -130,4 +140,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-07T06:43:10.543068472Z"
+generated: "2025-07-07T09:19:17.72172023Z"
