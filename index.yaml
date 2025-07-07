@@ -28,6 +28,20 @@ entries:
     urls:
     - argo-cd-1.0.0.tgz
     version: 1.0.0
+  greptimedb-operator:
+  - apiVersion: v2
+    created: "2025-07-07T06:43:10.54304624Z"
+    dependencies:
+    - name: greptimedb-operator
+      repository: https://greptimeteam.github.io/helm-charts/
+      version: 0.4.0
+    description: Umbrella chart - GreptimeDB Server
+    digest: cdf278528b18104d6838ff4241a06622f5f9e6465efce7417f599a444a199f45
+    name: greptimedb-operator
+    type: application
+    urls:
+    - greptimedb-operator-1.0.0.tgz
+    version: 1.0.0
   kyverno:
   - apiVersion: v2
     created: "2025-06-27T18:03:02.263515976Z"
@@ -116,4 +130,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-05T18:50:26.625842756Z"
+generated: "2025-07-07T06:43:10.543068472Z"
