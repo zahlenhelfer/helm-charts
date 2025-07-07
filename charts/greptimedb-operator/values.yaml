@@ -1,1 +1,6 @@
-greptimedb-operator:
+createDB:
+  enabled: true
+  standaloneDB: true
+  dbName: greptimedb-basic
+
+greptimedb-operator: {}
