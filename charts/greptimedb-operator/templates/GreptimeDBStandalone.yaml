@@ -1,8 +1,10 @@
+{{- if and .Values.createDB.enabled .Values.createDB.standaloneDB }}
 apiVersion: greptime.io/v1alpha1
 kind: GreptimeDBStandalone
 metadata:
-  name: basic
+  name: {{ .Values.createDB.dbName }}
 spec:
   base:
     main:
       image: greptime/greptimedb:latest
+{{- end }}

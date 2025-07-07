@@ -2,7 +2,7 @@ apiVersion: v2
 name: greptimedb-operator
 description: Umbrella chart - GreptimeDB Server
 type: application
-version: 1.0.0
+version: 1.1.0
 
 dependencies:
   - name: greptimedb-operator
