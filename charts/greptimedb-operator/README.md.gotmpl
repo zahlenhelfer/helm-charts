@@ -8,8 +8,8 @@
 To install the chart with the release name `my-argo`:
 
 ```console
-$ helm repo add zahlenhelfer https://zahlenhelfer.github.io/helm-charts
-$ helm install my-greptimedb zahlenhelfer/{{ template "chart.name" . }}
+helm repo add zahlenhelfer https://zahlenhelfer.github.io/helm-charts
+helm install my-greptimedb zahlenhelfer/{{ template "chart.name" . }}
 ```
 
 {{ template "chart.requirementsSection" . }}
