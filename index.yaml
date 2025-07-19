@@ -28,6 +28,20 @@ entries:
     urls:
     - argo-cd-1.0.0.tgz
     version: 1.0.0
+  cert-manager:
+  - apiVersion: v2
+    created: "2025-07-19T08:20:30.609893372Z"
+    dependencies:
+    - name: cert-manager
+      repository: https://charts.jetstack.io
+      version: 1.18.1
+    description: Umbrella chart - Cert Manager
+    digest: fdf0a1e323ea9581e2eb3031260aff0fecaa31f7b8f13336b0f68f46760bf432
+    name: cert-manager
+    type: application
+    urls:
+    - cert-manager-1.0.0.tgz
+    version: 1.0.0
   greptimedb-operator:
   - apiVersion: v2
     created: "2025-07-07T10:14:39.425148315Z"
@@ -153,4 +167,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-07T10:14:39.599249326Z"
+generated: "2025-07-19T08:20:31.365709755Z"
