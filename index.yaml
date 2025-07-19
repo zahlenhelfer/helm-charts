@@ -14,6 +14,16 @@ entries:
     urls:
     - ArgoCD-1.0.0.tgz
     version: 1.0.0
+  access-policies:
+  - apiVersion: v2
+    created: "2025-07-19T08:45:57.168538266Z"
+    description: This Chart deploys access policies for Kubernetes
+    digest: 7a860362ff8cfa1c05f8915b22bebcf853586923210d9efce2971c5d3c5944f7
+    name: access-policies
+    type: application
+    urls:
+    - access-policies-1.0.0.tgz
+    version: 1.0.0
   argo-cd:
   - apiVersion: v2
     created: "2025-07-05T18:50:26.625822468Z"
@@ -167,4 +177,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-19T08:20:31.365709755Z"
+generated: "2025-07-19T08:45:57.993817607Z"
