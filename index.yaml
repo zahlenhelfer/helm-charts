@@ -52,6 +52,19 @@ entries:
     urls:
     - cert-manager-1.0.0.tgz
     version: 1.0.0
+  falco:
+  - apiVersion: v2
+    created: "2025-07-21T15:30:53.834835991Z"
+    dependencies:
+    - name: falco
+      repository: https://falcosecurity.github.io/charts
+      version: 6.0.1
+    description: This Chart deploys falco.
+    digest: fa406be00dd81f178f7c85f1b8854b429f452899ee6821f178860b6bff300278
+    name: falco
+    urls:
+    - falco-1.0.0.tgz
+    version: 1.0.0
   greptimedb-operator:
   - apiVersion: v2
     created: "2025-07-07T10:14:39.425148315Z"
@@ -177,4 +190,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-19T08:45:57.993817607Z"
+generated: "2025-07-21T15:30:53.834864193Z"
