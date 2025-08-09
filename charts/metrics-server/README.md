@@ -8,7 +8,7 @@ Umbrella chart - Metrics Server
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes-sigs.github.io/metrics-server/ | metrics-server | 3.12.2 |
+| https://kubernetes-sigs.github.io/metrics-server/ | metrics-server | 3.13.0 |
 
 ## Values
 
