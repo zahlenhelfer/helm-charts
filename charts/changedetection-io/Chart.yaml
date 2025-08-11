@@ -5,6 +5,6 @@ type: application
 version: 1.0.0
 
 dependencies:
-  - name: zekker6/changedetection-io
+  - name: changedetection-io
     version: 1.54.0
     repository: https://zekker6.github.io/helm-charts/
