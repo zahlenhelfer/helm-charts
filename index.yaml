@@ -52,6 +52,20 @@ entries:
     urls:
     - cert-manager-1.0.0.tgz
     version: 1.0.0
+  changedetection-io:
+  - apiVersion: v2
+    created: "2025-08-11T07:28:14.545042558Z"
+    dependencies:
+    - name: changedetection-io
+      repository: https://zekker6.github.io/helm-charts/
+      version: 1.54.0
+    description: Umbrella chart - changedetection-io
+    digest: 1ed642c566ef531fc0346d77024681f2da036dad6fb98ff92ee6d05d4e102793
+    name: changedetection-io
+    type: application
+    urls:
+    - changedetection-io-1.0.0.tgz
+    version: 1.0.0
   falco:
   - apiVersion: v2
     created: "2025-07-21T15:30:53.834835991Z"
@@ -190,4 +204,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-21T15:30:53.834864193Z"
+generated: "2025-08-11T07:28:15.300983779Z"
