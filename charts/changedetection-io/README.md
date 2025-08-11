@@ -8,7 +8,7 @@ Umbrella chart - changedetection-io
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://zekker6.github.io/helm-charts/ | zekker6/changedetection-io | 1.54.0 |
+| https://zekker6.github.io/helm-charts/ | changedetection-io | 1.54.0 |
 
 ## Values
 
