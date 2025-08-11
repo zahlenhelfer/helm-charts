@@ -1,0 +1,10 @@
+apiVersion: v2
+name: changedetection-io
+description: Umbrella chart - changedetection-io
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: zekker6/changedetection-io
+    version: 1.54.0
+    repository: https://zekker6.github.io/helm-charts/

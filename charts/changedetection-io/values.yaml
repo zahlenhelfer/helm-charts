@@ -1,0 +1,7 @@
+changedetection-io:
+  env:
+    TZ: "Europe/Berlin"
+
+  ingress:
+    main:
+      enabled: true
