@@ -79,6 +79,19 @@ entries:
     urls:
     - falco-1.0.0.tgz
     version: 1.0.0
+  grafana:
+  - apiVersion: v2
+    created: "2025-08-29T11:12:08.860046313Z"
+    dependencies:
+    - name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 9.3.2
+    description: This Chart deploys grafana
+    digest: ba6618551469cd0a49defa72915eeb1aa4746a9543236cdf4b7093cd32020c49
+    name: grafana
+    urls:
+    - grafana-1.0.0.tgz
+    version: 1.0.0
   greptimedb-operator:
   - apiVersion: v2
     created: "2025-07-07T10:14:39.425148315Z"
@@ -105,6 +118,19 @@ entries:
     type: application
     urls:
     - greptimedb-operator-1.0.0.tgz
+    version: 1.0.0
+  krane:
+  - apiVersion: v2
+    created: "2025-08-29T11:12:08.998819155Z"
+    dependencies:
+    - name: krane
+      repository: https://appvia.github.io/krane
+      version: 0.1.3
+    description: This Chart deploys krane
+    digest: 487ad67ab71a9220990cb90fb85bacf8fe734aaa8570c2a371d500576a4e3a02
+    name: krane
+    urls:
+    - krane-1.0.0.tgz
     version: 1.0.0
   kyverno:
   - apiVersion: v2
@@ -204,4 +230,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-11T07:28:15.300983779Z"
+generated: "2025-08-29T11:12:08.998839834Z"
