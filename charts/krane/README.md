@@ -8,7 +8,7 @@ This Chart deploys krane
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | krane | 9.3.2 |
+| https://appvia.github.io/krane | krane | 0.1.3 |
 
 ## Values
 
