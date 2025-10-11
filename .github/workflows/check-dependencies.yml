@@ -35,6 +35,8 @@ jobs:
                   # Find all potential umbrella charts (directories with Chart.yaml containing dependencies)
                   echo "Searching for umbrella charts..."
                   echo "Current directory: $(pwd)"
+                  echo all subdirs:
+                  echo $(ls -la)
                   while IFS= read -r -d '' chart_dir; do
                     if [ -f "$chart_dir/Chart.yaml" ] && grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
                       echo "Processing umbrella chart: $chart_dir"
