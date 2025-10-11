@@ -22,7 +22,7 @@ kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | 
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 8.1.2 |
+| https://argoproj.github.io/argo-helm | argo-cd | 8.6.0 |
 
 ## Values
 
