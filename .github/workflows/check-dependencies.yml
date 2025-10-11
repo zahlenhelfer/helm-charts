@@ -1,4 +1,4 @@
-name: Update Helm Dependencies
+name: Check Helm Dependencies (Separate PRs)
 
 on:
     schedule:
@@ -20,63 +20,75 @@ jobs:
               with:
                   version: v3.14.0 # Use the latest stable version
 
-            - name: Find and update all charts
-              id: update-charts
+            - name: Find charts with dependency updates
+              id: find-updates
               run: |
-                  # Initialize variables
+                  # Find all directories in charts/ that contain Chart.yaml with dependencies
                   UPDATES_FOUND=false
-                  CHANGES_REPORT=""
+                  CHART_LIST=""
 
-                  # Find all directories in charts/ that contain Chart.yaml
                   while IFS= read -r -d '' chart_dir; do
-                    echo "Processing chart in: $chart_dir"
+                    if [ -f "$chart_dir/Chart.yaml" ] && grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
+                      echo "Checking $chart_dir for updates"
 
-                    # Change to chart directory
-                    cd "$chart_dir" || continue
-
-                    # Check if Chart.yaml exists and has dependencies
-                    if [ -f Chart.yaml ] && grep -q "dependencies:" Chart.yaml; then
-                      echo "Found dependencies in $chart_dir"
-
-                      # Run helm dependency update
+                      # Change to chart directory and check for updates
+                      cd "$chart_dir"
                       helm dependency update
 
-                      # Check for changes
                       if ! git diff --quiet; then
                         UPDATES_FOUND=true
-                        CHANGES_REPORT+="### $(basename "$chart_dir")\n"
-                        CHANGES_REPORT+="```diff\n"
-                        CHANGES_REPORT+="$(git diff Chart.yaml Chart.lock | head -n 20)\n"
-                        CHANGES_REPORT+="... (truncated)\n"
-                        CHANGES_REPORT+="```\n\n"
+                        CHART_LIST+="$chart_dir|"
                       fi
-                    fi
 
-                    # Return to root directory
-                    cd "$GITHUB_WORKSPACE"
+                      cd "$GITHUB_WORKSPACE"
+                    fi
                   done < <(find charts -name Chart.yaml -print0 | xargs -0 dirname)
 
-                  # Set outputs
                   echo "updates_found=$UPDATES_FOUND" >> $GITHUB_OUTPUT
-                  echo "changes_report<<EOF" >> $GITHUB_OUTPUT
-                  echo "$CHANGES_REPORT" >> $GITHUB_OUTPUT
-                  echo "EOF" >> $GITHUB_OUTPUT
+                  echo "chart_list=$CHART_LIST" >> $GITHUB_OUTPUT
 
-            - name: Create PR with updates
-              if: steps.update-charts.outputs.updates_found == 'true'
-              uses: peter-evans/create-pull-request@v5
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  commit-message: "chore: update helm dependencies in charts"
-                  title: "chore: update helm dependencies in charts"
-                  body: |
-                      This PR updates the Helm dependencies in all charts to their latest versions.
+            - name: Create PRs for each chart
+              if: steps.find-updates.outputs.updates_found == 'true'
+              run: |
+                  # Split the chart list and process each one
+                  IFS='|' read -ra CHARTS <<< "${{ steps.find-updates.outputs.chart_list }}"
 
-                      The following changes were made:
+                  for chart_dir in "${CHARTS[@]}"; do
+                    if [ -z "$chart_dir" ]; then
+                      continue
+                    fi
 
-                      ${{ steps.update-charts.outputs.changes_report }}
+                    chart_name=$(basename "$chart_dir")
+                    branch_name="helm-dependency-update/$chart_name-$(date +%Y%m%d)"
 
-                      Please review the changes and merge if they look good.
-                  branch: "helm-dependency-updates/all-charts"
-                  base: "main"
-                  labels: "dependencies,helm,automation"
+                    # Create a new branch for this chart's updates
+                    git checkout -b "$branch_name"
+
+                    # Reset to clean state except for this chart's changes
+                    git checkout main -- .
+                    git add "$chart_dir/Chart.yaml" "$chart_dir/Chart.lock"
+                    git commit -m "chore: update helm dependencies in $chart_name chart"
+
+                    # Push and create PR
+                    git push origin "$branch_name"
+
+                    # Create PR using GitHub CLI
+                    gh pr create \
+                      --title "chore: update helm dependencies in $chart_name chart" \
+                      --body "This PR updates the Helm dependencies in the $chart_name chart to their latest versions.
+
+                      The changes include:
+                      ```bash
+                      $(cd "$chart_dir" && git diff HEAD~1 -- Chart.yaml Chart.lock)
+                      ```" \
+                      --base main \
+                      --head "$branch_name" \
+                      --label "dependencies,helm,automation" \
+                      --reviewer "kyverno-maintainers" \
+                      --assignee "kyverno-maintainers"
+
+                    # Return to main branch
+                    git checkout main
+                  done
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
