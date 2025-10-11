@@ -17,8 +17,6 @@ jobs:
 
             - name: Set up Helm
               uses: azure/setup-helm@v3
-              with:
-                  version: v3.14.0 # Use the latest stable version
 
             - name: Find charts with dependency updates
               id: find-updates
@@ -46,49 +44,3 @@ jobs:
 
                   echo "updates_found=$UPDATES_FOUND" >> $GITHUB_OUTPUT
                   echo "chart_list=$CHART_LIST" >> $GITHUB_OUTPUT
-
-            - name: Create PRs for each chart
-              if: steps.find-updates.outputs.updates_found == 'true'
-              run: |
-                  # Split the chart list and process each one
-                  IFS='|' read -ra CHARTS <<< "${{ steps.find-updates.outputs.chart_list }}"
-
-                  for chart_dir in "${CHARTS[@]}"; do
-                    if [ -z "$chart_dir" ]; then
-                      continue
-                    fi
-
-                    chart_name=$(basename "$chart_dir")
-                    branch_name="helm-dependency-update/$chart_name-$(date +%Y%m%d)"
-
-                    # Create a new branch for this chart's updates
-                    git checkout -b "$branch_name"
-
-                    # Reset to clean state except for this chart's changes
-                    git checkout main -- .
-                    git add "$chart_dir/Chart.yaml" "$chart_dir/Chart.lock"
-                    git commit -m "chore: update helm dependencies in $chart_name chart"
-
-                    # Push and create PR
-                    git push origin "$branch_name"
-
-                    # Create PR using GitHub CLI
-                    gh pr create \
-                      --title "chore: update helm dependencies in $chart_name chart" \
-                      --body "This PR updates the Helm dependencies in the $chart_name chart to their latest versions.
-
-                      The changes include:
-                      ```bash
-                      $(cd "$chart_dir" && git diff HEAD~1 -- Chart.yaml Chart.lock)
-                      ```" \
-                      --base main \
-                      --head "$branch_name" \
-                      --label "dependencies,helm,automation" \
-                      --reviewer "kyverno-maintainers" \
-                      --assignee "kyverno-maintainers"
-
-                    # Return to main branch
-                    git checkout main
-                  done
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
