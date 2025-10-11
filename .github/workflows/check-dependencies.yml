@@ -1,143 +1,25 @@
 name: Update Umbrella Helm Chart Dependencies
-
 on:
+    workflow_dispatch:
     schedule:
-        # Run weekly on Monday at 9 AM UTC
-        - cron: "0 9 * * 1"
-    workflow_dispatch: # Allow manual triggering
-
+        - cron: "0 0 * * *"
 jobs:
-    update-dependencies:
+    plantrigger:
         runs-on: ubuntu-latest
+        name: Force helm update
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: update helm
+              uses: cresta/helm-autoupdate@v1.6
+            - name: Create PR with changes
+              uses: peter-evans/create-pull-request@v3
+              id: cpr
               with:
-                  fetch-depth: 0
-                  token: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Set up Helm
-              uses: azure/setup-helm@v3
-              with:
-                  version: v3.14.0
-
-            - name: Install yq for YAML processing
-              run: |
-                  sudo snap install yq
-
-            - name: Find and update umbrella charts
-              id: find-updates
-              run: |
-                  # Initialize variables
-                  UPDATES_FOUND=false
-                  CHART_LIST=""
-
-                  # Find all potential umbrella charts (directories with Chart.yaml containing dependencies)
-                  echo "Searching for umbrella charts..."
-                  cd charts
-                  while IFS= read -r -d '' chart_dir; do
-                    if [ -f "$chart_dir/Chart.yaml" ] && grep -q "dependencies:" "$chart_dir/Chart.yaml"; then
-                      echo "Processing umbrella chart: $chart_dir"
-
-                      # Change to chart directory
-                      cd "$chart_dir" || continue
-
-                      # Get current chart version
-                      CURRENT_VERSION=$(yq eval '.version' Chart.yaml)
-                      CHART_NAME=$(yq eval '.name' Chart.yaml)
-
-                      # Run helm dependency update
-                      helm dependency update
-
-                      # Check for changes in Chart.lock
-                      if ! git diff --quiet Chart.lock; then
-                        UPDATES_FOUND=true
-                        CHART_LIST+="$chart_dir|$CHART_NAME|$CURRENT_VERSION|"
-
-                        # Get the new dependency versions
-                        NEW_DEPS=$(git diff Chart.lock | grep '+version:' | sed 's/^+//' | sort | uniq)
-                        echo "Found updates for $CHART_NAME:"
-                        echo "$NEW_DEPS"
-                      fi
-
-                      # Return to root
-                      cd "$GITHUB_WORKSPACE"
-                    fi
-                  done < <(find . -name Chart.yaml -print0 | xargs -0 dirname | grep -v '\.git' | grep -v 'node_modules')
-
-                  echo "updates_found=$UPDATES_FOUND" >> $GITHUB_OUTPUT
-                  echo "chart_list=$CHART_LIST" >> $GITHUB_OUTPUT
-
-            - name: Create PRs for each updated chart
-              if: steps.find-updates.outputs.updates_found == 'true'
-              run: |
-                  # Split the chart list (format: dir|name|version|)
-                  IFS='|' read -ra CHARTS <<< "${{ steps.find-updates.outputs.chart_list }}"
-
-                  i=0
-                  while [ $i -lt ${#CHARTS[@]} ]; do
-                    chart_dir=${CHARTS[$i]}
-                    chart_name=${CHARTS[$i+1]}
-                    current_version=${CHARTS[$i+2]}
-
-                    if [ -n "$chart_dir" ]; then
-                      # Create a new branch for this chart
-                      branch_name="update-deps/${chart_name}-${current_version}-$(date +%Y%m%d%H%M)"
-
-                      git checkout -b "$branch_name"
-
-                      # Reset to clean state except for this chart's changes
-                      git checkout main -- .
-                      git checkout "$branch_name" -- "$chart_dir/Chart.yaml" "$chart_dir/Chart.lock"
-
-                      # Update chart version (bump patch version)
-                      cd "$chart_dir"
-                      new_version=$(echo "$current_version" | awk -F. '{printf "%d.%d.%d", $1, $2, $3+1}')
-                      yq eval -i ".version = \"$new_version\"" Chart.yaml
-
-                      # Commit changes
-                      cd "$GITHUB_WORKSPACE"
-                      git add "$chart_dir/Chart.yaml" "$chart_dir/Chart.lock"
-                      git commit -m "chore($chart_name): update dependencies to latest versions
-
-                      Bumps chart version to $new_version and updates dependencies:
-
-                      $(cd "$chart_dir" && git diff HEAD~1 -- Chart.lock | grep '^+' | grep version | sort | uniq)"
-
-                      # Push and create PR
-                      git push origin "$branch_name"
-
-                      # Create PR using GitHub API
-                      PR_DATA=$(jq -n --arg title "chore($chart_name): update dependencies to $new_version" \
-                        --arg body "This PR updates the dependencies for the $chart_name chart to their latest versions and bumps the chart version to $new_version.
-
-                        ### Changes:
-                        - Updated chart version: $current_version → $new_version
-                        - Updated dependencies:
-                        \`\`\`
-                        $(cd "$chart_dir" && git diff HEAD~1 -- Chart.lock | grep '^+' | grep version | sort | uniq)
-                        \`\`\`" \
-                        --arg head "$branch_name" \
-                        --arg base "main" \
-                        '{
-                          title: $title,
-                          body: $body,
-                          head: $head,
-                          base: $base,
-                          labels: ["dependencies", "helm", "automation"],
-                          assignees: ["kyverno-maintainers"],
-                          reviewers: ["kyverno-maintainers"]
-                        }')
-
-                      curl -X POST \
-                        -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-                        -H "Accept: application/vnd.github.v3+json" \
-                        https://api.github.com/repos/${{ github.repository }}/pulls \
-                        -d "$PR_DATA"
-
-                      # Clean up
-                      git checkout main
-                    fi
-
-                    i=$((i + 3))
-                  done
+                  branch: helm-updates
+                  delete-branch: true
+                  title: "Force helm updates"
+                  labels: forced-workflow
+                  committer: Forced updates <noreply@noreply.com>
+                  body: "Updated helm versions"
+                  commit-message: "Updates helm versions"
