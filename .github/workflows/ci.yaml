@@ -1,12 +1,9 @@
-
 name: CI
 on:
   push:
-    branches: [ main ]
+    branches: [main]
     paths:
-      - 'charts/**'
-  pull_request:
-    branches: [ main ]
+      - "charts/**"
   workflow_dispatch:
 
 jobs:
