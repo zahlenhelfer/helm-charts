@@ -12,3 +12,7 @@ updates:
     directory: "/charts/my-nginx"
     schedule:
       interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/kyverno"
+    schedule:
+      interval: "weekly"
