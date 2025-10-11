@@ -5,14 +5,26 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
+    directory: "/charts/argocd"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/certmanager"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/falco"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/kyverno"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
     directory: "/charts/metrics-server"
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
     directory: "/charts/my-nginx"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "helm"
-    directory: "/charts/kyverno"
     schedule:
       interval: "weekly"
