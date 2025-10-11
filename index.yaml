@@ -66,6 +66,19 @@ entries:
     urls:
     - changedetection-io-1.0.0.tgz
     version: 1.0.0
+  dependency-track:
+  - apiVersion: v2
+    created: "2025-10-11T12:11:51.347274579Z"
+    dependencies:
+    - name: dependency-track
+      repository: https://dependencytrack.github.io/helm-charts
+      version: 0.36.0
+    description: This Chart deploys dependency-track.
+    digest: 2f23a70f0762627acc8b7edf24fa908fb4811477393713a20ee5971fe949a65b
+    name: dependency-track
+    urls:
+    - dependency-track-1.0.0.tgz
+    version: 1.0.0
   falco:
   - apiVersion: v2
     created: "2025-07-21T15:30:53.834835991Z"
@@ -230,4 +243,4 @@ entries:
     urls:
     - https://github.com/zahlenhelfer/helm-charts/releases/download/my-nginx-0.1.0/my-nginx-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-29T11:12:08.998839834Z"
+generated: "2025-10-11T12:11:51.500646102Z"
