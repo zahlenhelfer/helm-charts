@@ -1,6 +1,10 @@
 name: Generate Dependabot Config
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "charts/**"
   workflow_dispatch:
 
 jobs:
@@ -10,6 +14,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+
+      - name: delete existing dependabot.yaml
+        run: |
+          rm -f .github/dependabot.yml
 
       - name: Generate dependabot.yaml
         run: |
@@ -31,7 +39,6 @@ jobs:
               echo "      interval: \"weekly\""
             } >> .github/dependabot.yml
           done
-
 
       - name: Commit and push dependabot.yaml
         run: |
