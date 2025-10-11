@@ -8,7 +8,7 @@ This Chart deploys falco.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://falcosecurity.github.io/charts | falco | 6.0.1 |
+| https://falcosecurity.github.io/charts | falco | 6.4.0 |
 
 ## Values
 
