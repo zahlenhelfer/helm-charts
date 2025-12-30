@@ -8,7 +8,7 @@ Umbrella chart - Cert Manager
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.jetstack.io | cert-manager | 1.19.0 |
+| https://charts.jetstack.io | cert-manager | 1.19.2 |
 
 ## Values
 
