@@ -5,18 +5,6 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
-    directory: "/charts/kyverno"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "helm"
-    directory: "/charts/metrics-server"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "helm"
-    directory: "/charts/access-policies"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "helm"
     directory: "/charts/changedetection-io"
     schedule:
       interval: "weekly"
@@ -25,15 +13,7 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
-    directory: "/charts/argocd"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "helm"
     directory: "/charts/falco"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "helm"
-    directory: "/charts/krane"
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
@@ -41,7 +21,27 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
+    directory: "/charts/argocd"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/greptimedb-operator"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/metrics-server"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
     directory: "/charts/dependencytrack"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/kyverno"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "helm"
+    directory: "/charts/access-policies"
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
@@ -49,6 +49,6 @@ updates:
     schedule:
       interval: "weekly"
   - package-ecosystem: "helm"
-    directory: "/charts/greptimedb-operator"
+    directory: "/charts/krane"
     schedule:
       interval: "weekly"
