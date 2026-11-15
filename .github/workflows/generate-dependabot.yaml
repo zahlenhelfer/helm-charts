@@ -33,7 +33,7 @@ jobs:
             echo "      interval: \"weekly\""
           } > .github/dependabot.yml
 
-          find charts -type f -name "Chart.yaml" | while read -r chart_file; do
+          find charts -type f -name "Chart.yaml" | sort | while read -r chart_file; do
             chart_dir=$(dirname "$chart_file")
             {
               echo "  - package-ecosystem: \"helm\""
