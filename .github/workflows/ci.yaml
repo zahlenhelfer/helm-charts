@@ -37,7 +37,7 @@ jobs:
           helm plugin install https://github.com/helm-unittest/helm-unittest.git --version v1.2.1
       - name: Run helm unittest
         run: |
-          helm unittest -f 'charts/*/*/*_test.yaml' charts/
+          helm unittest charts/*
 
   docs:
     name: Generate Docs
