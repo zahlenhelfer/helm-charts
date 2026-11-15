@@ -28,11 +28,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: d3adb5/helm-unittest-action@v2
+      - name: Set up Helm
+        uses: azure/setup-helm@v5
         with:
-          helm-version: v3.15.2
-          unittest-version: "~1"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version: v3.18.4
+      - name: Install helm-unittest
+        run: |
+          helm plugin install https://github.com/helm-unittest/helm-unittest.git --version v1.2.1
+      - name: Run helm unittest
+        run: |
+          helm unittest -f 'charts/*/*/*_test.yaml' charts/
 
   docs:
     name: Generate Docs
