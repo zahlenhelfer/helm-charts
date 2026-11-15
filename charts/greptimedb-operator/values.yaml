@@ -1,6 +1,25 @@
+# GreptimeDB Operator v0.6.0 Configuration
+# Upgrade from v0.4.0 - Minor version, should be backward compatible
+
 createDB:
   enabled: true
   standaloneDB: true
   dbName: greptimedb-basic
 
-greptimedb-operator: {}
+# Operator configuration
+greptimedb-operator:
+  # Optional: Resource limits for operator
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+  
+  # Optional: Logging level
+  logLevel: info
+  
+  # Optional: Watch configuration
+  # If you need to watch specific namespaces:
+  # namespace: ""  # Empty = watch all namespaces
