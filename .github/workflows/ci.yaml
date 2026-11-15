@@ -61,7 +61,7 @@ jobs:
           fi
       - name: Create Pull Request
         if: steps.git-check.outputs.no_changes != 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore: update Helm documentation"
           branch: "docs/helm-docs-update"
